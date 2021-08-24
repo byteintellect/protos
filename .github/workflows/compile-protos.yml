@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: production
+    environment: build
     steps:
       - uses: actions/checkout@v2
       - name: install golang
@@ -18,4 +18,5 @@ jobs:
         env:
           TOKEN_NAME: ${{ secrets.TOKEN_NAME }}
           TOKEN_VALUE: ${{ secrets.TOKEN_VALUE }}
+          GO_CODE_PATH: "github.com/byteintellect/protos_go"
         run: make ORIGIN_PATH=https://${TOKEN_NAME}:${TOKEN_VALUE}@github.com/byteintellect/protos_go.git build_and_push_go
