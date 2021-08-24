@@ -2,6 +2,7 @@ syntax = "proto3";
 
 import "core_v1/core_v1.proto";
 import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
 option go_package = "github.com/byteintellect/protos/users_v1;users_v1";
 
 message UserDto {
