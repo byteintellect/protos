@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package core_v1;
+
+option go_package = "github.com/byteintellect/protos/core_v1;core_v1";
+
+enum Gender {
+  GENDER_INVALID = 0;
+  GENDER_MALE = 1;
+  GENDER_FEMALE = 2;
+  GENDER_OTHER = 3;
+}
+
+enum Status {
+  STATUS_INVALID = 0;
+  STATUS_ACTIVE = 1;
+  STATUS_INACTIVE = 2;
+  STATUS_BLOCKED = 3;
+}
+
+enum Relation {
+  RELATION_INVALID = 0;
+  RELATION_MOTHER = 1;
+  RELATION_FATHER = 2;
+  RELATION_WIFE = 3;
+  RELATION_HUSBAND = 4;
+  RELATION_BROTHER = 5;
+  RELATION_SISTER = 6;
+}
+
+enum IdentityType {
+  IDENTITY_TYPE_INVALID = 0;
+  IDENTITY_TYPE_AADHAAR = 1;
+  IDENTITY_TYPE_PHONE = 2;
+  IDENTITY_TYPE_EMAIL = 3;
+  IDENTITY_TYPE_PASSPORT = 4;
+  IDENTITY_TYPE_PAN = 5;
+}
+
+enum VerificationStatus {
+  VERIFICATION_STATUS_INVALID = 0;
+  VERIFICATION_STATUS_VERIFIED = 1;
+  VERIFICATION_STATUS_UNVERIFIED = 2;
+  VERIFICATION_STATUS_REJECTED = 3;
+}
