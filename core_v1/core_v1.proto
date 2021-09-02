@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package core_v1;
 
-option go_package = "github.com/byteintellect/protos/core_v1;core_v1";
+option go_package = "github.com/byteintellect/protos_go/core_v1;core_v1";
 
 enum Gender {
   GENDER_INVALID = 0;
