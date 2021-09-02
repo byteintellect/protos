@@ -7,6 +7,7 @@ tag='';
 build() {
   [ ! -d "${SOURCE_CODE_PATH}" ] && mkdir -p "${SOURCE_CODE_PATH}";
   # shellcheck disable=SC2046
+  echo "${PWD}"
   docker run --rm --user $(id -u):$(id -g) -v"${PWD}":"${PWD}" -v"${SOURCE_CODE_PATH}":"${SOURCE_CODE_PATH}" -w"${SOURCE_CODE_PATH}" thethingsindustries/protoc:latest --proto_path="${PWD}" --go_out="${SOURCE_CODE_PATH}" --go-grpc_out="${SOURCE_CODE_PATH}" --grpc-gateway_out="logtostderr=true,allow_delete_body=true:." -I/usr/include/github.com/gogo/protobuf "${PWD}"/core_v1/core_v1.proto "${PWD}"/users_v1/users_v1.proto;
   cd "${SOURCE_CODE_PATH}"/"${GO_CODE_PATH}" || exit;
   go mod init "${GO_CODE_PATH}";
