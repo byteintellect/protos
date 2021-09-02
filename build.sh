@@ -20,7 +20,7 @@ fill_git_tag() {
 
 push() {
   cd "${SOURCE_CODE_PATH}"/"${GO_CODE_PATH}" || exit;
-  git init --initial-branch=master;
+  git init --initial-branch=main;
   git remote add origin "${ORIGIN_PATH}";
   git config user.name kutty-kumar;
   git config user.email kumar.d@byteintellect.com;
