@@ -23,12 +23,12 @@ push() {
   git init --initial-branch=master;
   git remote add origin "${ORIGIN_PATH}";
   git config user.name kutty-kumar;
-  git config user.email kumar.varalakshmi@outlook.com;
+  git config user.email kumar.d@byteintellect.com;
   git add .;
   git commit -m "compiled protobuf code";
   git fetch --all;
-  git branch --set-upstream-to=origin/master master;
-  git pull --rebase;
+  git branch --set-upstream-to=origin/main main;
+  git pull --rebase --allow-unrelated-histories;
   git tag "${1}";
   git push --atomic origin HEAD "${1}";
 }
