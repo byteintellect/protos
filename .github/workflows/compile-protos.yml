@@ -32,7 +32,7 @@ jobs:
       - name: print gen-grpc-path
         run: which protoc-gen-go-grpc
       - name: print gen-gateway-path
-        run: which protoc-grpc-gateway
+        run: which protoc-gen-grpc-gateway
       - name: Compile the protocol buffer files to golang
         env:
           TOKEN_NAME: ${{ secrets.TOKEN_NAME }}
