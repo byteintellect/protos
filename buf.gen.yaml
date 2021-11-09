@@ -10,14 +10,11 @@ plugins:
     out: gen/proto/go
     opt:
       - paths=source_relative
-    path: /usr/local/bin/protoc-gen-go
   - name: go-grpc
     out: gen/proto/go
     opt:
       - paths=source_relative
-    path: /usr/local/bin/protoc-gen-go-grpc
   - name: grpc-gateway
     out: gen/proto/go
     opt:
       - paths=source_relative
-    path: /usr/local/bin/protoc-gen-grpc-gateway
