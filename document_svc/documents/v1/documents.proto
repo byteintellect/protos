@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package documents.v1;
+
+import "google/api/annotations.proto";
+import "commons/v1/commons.proto";
+
+message DocumentDto {
+  commons.v1.Status status = 1;
+  string external_id = 2;
+  string document_url = 3;
+  commons.v1.DocumentProvider provider = 4;
+  commons.v1.DocumentVisibility visibility = 5;
+  string mimeType = 6;
+}
+
+message CreateDocumentRequest {
+  DocumentDto request = 1;
+}
+
+message CreateDocumentResponse {
+  DocumentDto response = 1;
+}
+
+message DeleteDocumentRequest {
+  string document_id = 1;
+}
+
+message DeleteDocumentResponse {
+  bool status = 1;
+}
+
+service DocumentService {
+  rpc CreateDocument(CreateDocumentRequest) returns (CreateDocumentResponse){
+    option(google.api.http) = {
+      post: "/v1/documents"
+      body: "request"
+    };
+  }
+
+  rpc DeleteDocument(DeleteDocumentRequest) returns (DeleteDocumentResponse){
+    option(google.api.http) = {
+      delete: "/v1/documents/{document_id}"
+    };
+  }
+}

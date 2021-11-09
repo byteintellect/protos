@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package otps.v1;
+
+import "google/api/annotations.proto";
+import "commons/v1/commons.proto";
+
+message AuthOtpDto {
+  string external_id = 1;
+  commons.v1.Status status = 2;
+  string phoneNumber = 3;
+  string otp = 4;
+}
+
+message GetOtpForPhoneRequest {
+  string phoneNumber = 1;
+  string external_id = 2;
+}
+
+message GetOtpForPhoneResponse {
+  AuthOtpDto response = 1;
+}
+
+message AuthValidateOtpRequest {
+  string phone_number = 1;
+  string otp_id = 2;
+  string otp = 3;
+}
+
+message AuthValidateOtpResponse {
+  bool valid = 1;
+}
+
+service OtpService {
+  rpc GetOtp(GetOtpForPhoneRequest) returns (GetOtpForPhoneResponse){
+    option(google.api.http) = {
+      post: "/v1/otps"
+      body: "*"
+    };
+  }
+
+  rpc ValidateOtp(AuthValidateOtpRequest) returns (AuthValidateOtpResponse){
+    option(google.api.http) = {
+      put: "/v1/otps/validate"
+      body: "*"
+    };
+  }
+}

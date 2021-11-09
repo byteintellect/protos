@@ -1,0 +1,120 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+import "commons/v1/commons.proto";
+
+package communications.v1;
+
+message ChannelDto {
+  commons.v1.CommunicationChannel channel_type = 1;
+  commons.v1.Status status = 2;
+  string external_id = 3;
+  string name = 4;
+}
+
+message ChannelTemplateDto {
+  commons.v1.Status status = 1;
+  string external_id = 2;
+  string content = 3;
+  commons.v1.CommunicationChannel channel_type = 4;
+}
+
+message ChannelProviderDto {
+  commons.v1.Status status = 1;
+  string external_id = 2;
+  string channel_id = 3;
+  string name = 4;
+}
+
+message CreateChannelProviderRequest {
+  string channel_id = 1;
+  ChannelProviderDto request = 2;
+}
+
+message CreateChannelProviderResponse {
+  ChannelProviderDto response = 1;
+}
+
+message CommunicationRequestDto {
+  commons.v1.Status status = 1;
+  string external_id = 2;
+  string content = 3;
+  commons.v1.CommunicationRequestStatus request_status = 4;
+  string destination = 5;
+  commons.v1.CommunicationChannel channel_type = 6;
+}
+
+message CreateChannelRequest {
+  ChannelDto request = 1;
+}
+
+message CreateChannelResponse {
+  ChannelDto response = 1;
+}
+
+message CreateChannelTemplateRequest {
+  string channel_id = 1;
+  ChannelTemplateDto request = 2;
+}
+
+message CreateChannelTemplateResponse {
+  ChannelTemplateDto response = 1;
+}
+
+message UpdateChannelTemplateRequest {
+  string channel_id = 1;
+  string channel_template_id = 2;
+  ChannelTemplateDto request = 3;
+}
+
+message UpdateChannelTemplateResponse {
+  ChannelTemplateDto response = 1;
+}
+
+message CreateCommunicationRequest {
+  string channel_id = 1;
+  string template_id = 2;
+  string provider_id = 3;
+  CommunicationRequestDto request = 4;
+}
+
+message CreateCommunicationResponse {
+  CommunicationRequestDto response = 1;
+}
+
+service CommunicationService {
+  rpc CreateChannel(CreateChannelRequest) returns (CreateChannelResponse) {
+    option(google.api.http) = {
+      post: "/v1/channels"
+      body: "request"
+    };
+  }
+
+  rpc CreateChannelTemplate(CreateChannelTemplateRequest) returns (CreateChannelTemplateResponse) {
+    option(google.api.http) = {
+      post: "/v1/channels/{channel_id}/channel_templates"
+      body: "request"
+    };
+  }
+
+  rpc UpdateChannelTemplate(UpdateChannelTemplateRequest) returns (UpdateChannelTemplateResponse){
+    option(google.api.http) = {
+      patch: "/v1/channels/{channel_id}/channel_templates/{channel_template_id}"
+      body: "request"
+    };
+  }
+
+  rpc CreateChannelProvider(CreateChannelProviderRequest) returns (CreateChannelProviderResponse){
+    option(google.api.http) = {
+      post: "/v1/channels/{channel_id}/providers"
+      body: "request"
+    };
+  }
+
+  rpc CreateCommunication(CreateCommunicationRequest) returns (CreateCommunicationResponse){
+    option(google.api.http) = {
+      post: "/v1/channels/{channel_id}/templates/{template_id}/providers/{provider_id}/communications"
+      body: "request"
+    };
+  }
+}

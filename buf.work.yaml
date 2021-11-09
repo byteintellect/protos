@@ -1,0 +1,9 @@
+version: v1
+directories:
+  - core
+  - user_svc
+  - communication_svc
+  - document_svc
+  - device_svc
+  - auth_svc
+  - otp_svc

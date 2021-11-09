@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package devices.v1;
+
+import "google/api/annotations.proto";
+import "commons/v1/commons.proto";
+
+message DeviceDto {
+  commons.v1.Status status = 1;
+  string external_id = 2;
+  string user_id = 3;
+  string hardware_id = 4;
+  string platform = 5;
+}
+
+message CreateDeviceRequest {
+  DeviceDto request = 1;
+}
+
+message CreateDeviceResponse {
+  DeviceDto response = 1;
+}
+
+message DeactivateDeviceRequest {
+  string device_id = 1;
+}
+
+message DeactivateDeviceResponse {
+  bool status = 1;
+}
+
+message DeactivateUserDevicesRequest {
+  string user_id = 1;
+}
+
+message DeactivateUserDevicesResponse {
+  bool status = 1;
+}
+
+message GetDevicesForUserRequest {
+  string user_id = 1;
+}
+
+message GetDevicesForUserResponse {
+  repeated DeviceDto response = 1;
+}
+
+service DeviceService {
+  rpc CreateDevice(CreateDeviceRequest) returns (CreateDeviceResponse) {
+    option(google.api.http) = {
+      post: "/v1/devices"
+      body: "request"
+    };
+  }
+
+  rpc GetDevicesForUser(GetDevicesForUserRequest) returns (GetDevicesForUserResponse){
+    option(google.api.http) = {
+      get: "/v1/devices/{user_id}"
+    };
+  }
+
+  rpc DeactivateDevice(DeactivateDeviceRequest) returns (DeactivateDeviceResponse) {
+    option(google.api.http) = {
+      delete: "/v1/devices/{device_id}"
+    };
+  }
+
+  rpc DeactivateUserDevices(DeactivateUserDevicesRequest) returns (DeactivateDeviceResponse){
+    option(google.api.http) = {
+      delete: "/v1/users/{user_id}/devices"
+    };
+  }
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package auths.v1;
+
+import "commons/v1/commons.proto";
+import "google/api/annotations.proto";
+
+message TokenDto {
+  string access_token = 1;
+  string external_id = 2;
+  uint64 access_token_ttl = 3;
+  string refresh_token = 4;
+  uint64 refresh_token_ttl = 5;
+  string user_id = 6;
+  commons.v1.Status status = 7;
+}
+
+// TODO check if this can be de-duplicated
+message OtpDto {
+  string external_id = 1;
+  commons.v1.Status status = 2;
+  string phoneNumber = 3;
+  string otp = 4;
+}
+
+message ValidateOtpRequest {
+  string otp = 1;
+  string otp_id = 2;
+}
+
+message LoginRequest {
+  string identity = 1;
+  string value = 2;
+}
+
+message LoginResponse {
+  TokenDto response = 1;
+}
+
+message RefreshTokenRequest {
+  string refresh_token = 1;
+}
+
+message RefreshTokenResponse {
+  TokenDto response = 1;
+}
+
+service AuthsService {
+  rpc Login(LoginRequest) returns (OtpDto){
+    option(google.api.http) = {
+      post: "/v1/login"
+      body: "*"
+    };
+  }
+
+  rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse){
+    option(google.api.http) = {
+      post: "/v1/refresh"
+      body: "*"
+    };
+  }
+
+  rpc ValidateOtp(ValidateOtpRequest) returns (LoginResponse){
+    option(google.api.http) = {
+      post: '/v1/otp/validate'
+      body: "*"
+    };
+  }
+}
