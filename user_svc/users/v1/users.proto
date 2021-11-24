@@ -13,6 +13,7 @@ message UserDto {
   google.protobuf.Timestamp dob = 5;
   string external_id = 6;
   commons.v1.Relation relation = 7;
+  commons.v1.Status status = 8;
 }
 
 message IdentityDto {
@@ -234,7 +235,7 @@ service UserService {
 
   rpc GetUserByIdentity(GetUserByIdentityRequest) returns (CreateUserResponse){
     option(google.api.http) = {
-     get: "/v1/users/identities/{type}/{value}"
+      get: "/v1/users/identities/{type}/{value}"
     };
   }
 }
