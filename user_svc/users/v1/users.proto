@@ -146,6 +146,11 @@ message GetUserAddressesResponse {
   repeated AddressDto response = 1;
 }
 
+message GetUserByIdentityRequest {
+  core_v1.IdentityType type = 1;
+  string value = 2;
+}
+
 service UserService {
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
     option(google.api.http) = {
@@ -224,6 +229,12 @@ service UserService {
   rpc GetUserAddresses(GetUserAddressesRequest)returns(GetUserAddressesResponse){
     option(google.api.http) = {
       get:"/v1/users/{user_id}/addresses"
+    };
+  }
+
+  rpc GetUserByIdentity(GetUserByIdentityRequest) returns (CreateUserResponse){
+    option(google.api.http) = {
+     get: "/v1/users/identities/{type}/{value}"
     };
   }
 }
