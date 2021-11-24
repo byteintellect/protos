@@ -147,7 +147,7 @@ message GetUserAddressesResponse {
 }
 
 message GetUserByIdentityRequest {
-  core_v1.IdentityType type = 1;
+  commons.v1.IdentityType type = 1;
   string value = 2;
 }
 
