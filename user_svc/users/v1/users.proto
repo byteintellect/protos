@@ -235,7 +235,8 @@ service UserService {
 
   rpc GetUserByIdentity(GetUserByIdentityRequest) returns (CreateUserResponse){
     option(google.api.http) = {
-      get: "/v1/users/identities/{type}/{value}"
+      put: "/v1/users/identities"
+      body: "*"
     };
   }
 }
