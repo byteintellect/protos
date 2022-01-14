@@ -15,19 +15,6 @@ message TokenDto {
   commons.v1.Status status = 7;
 }
 
-// TODO check if this can be de-duplicated
-message OtpDto {
-  string external_id = 1;
-  commons.v1.Status status = 2;
-  string phoneNumber = 3;
-  string otp = 4;
-}
-
-message ValidateOtpRequest {
-  string otp = 1;
-  string otp_id = 2;
-}
-
 message LoginRequest {
   string identity = 1;
   string value = 2;
@@ -46,7 +33,7 @@ message RefreshTokenResponse {
 }
 
 service AuthsService {
-  rpc Login(LoginRequest) returns (OtpDto){
+  rpc Login(LoginRequest) returns (commons.v1.GetOtpForPhoneResponse){
     option(google.api.http) = {
       post: "/v1/login"
       body: "*"
@@ -60,7 +47,7 @@ service AuthsService {
     };
   }
 
-  rpc ValidateOtp(ValidateOtpRequest) returns (LoginResponse){
+  rpc ValidateOtp(commons.v1.AuthValidateOtpRequest) returns (LoginResponse){
     option(google.api.http) = {
       post: '/v1/otp/validate'
       body: "*"
